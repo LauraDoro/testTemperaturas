@@ -19,6 +19,39 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  */
 class TemperaturaController extends AbstractController
 {
+    
+    /**
+     * @Route("/", name="apiTemperaturas")
+     */
+    public function apiTemperaturasAction()
+    {
+        $apiKey = "68844f79d62759155fa0ee2382446c87";
+        $citiesId = [3119841, 3117813, 3114965, 3113209];
+        $temperaturas = [];
+
+        try
+        {
+            foreach ($citiesId as $city){
+                $apiUrl = "http://api.openweathermap.org/data/2.5/weather?id=" . $city . "&lang=en&units=metric&APPID=" . $apiKey ."&units=metric";
+
+                $request = file_get_contents($apiUrl);
+
+                $jsonPHP  = json_decode($request, true);
+
+                array_push($temperaturas, $jsonPHP);
+            }
+        }
+        catch (ExternalApiCallException $e)
+        {
+            dump($e);
+        }
+
+        return $this->render('temperaturas/index.html.twig', [
+            'temperaturas' =>  $temperaturas,
+        ]);
+
+    }
+    
 
     /**
      * @Route("/correo", name="correo")
@@ -56,40 +89,5 @@ class TemperaturaController extends AbstractController
 
         return new Response("Correo enviado");
     }
-
-    /**
-     * @Route("/", name="apiTemperaturas")
-     */
-    public function apiTemperaturasAction()
-    {
-        $apiKey = "68844f79d62759155fa0ee2382446c87";
-        $citiesId = [3119841, 3117813, 3114965, 3113209];
-        $temperaturas = [];
-
-        try
-        {
-            foreach ($citiesId as $city){
-                $apiUrl = "http://api.openweathermap.org/data/2.5/weather?id=" . $city . "&lang=en&units=metric&APPID=" . $apiKey ."&units=metric";
-
-                $request = file_get_contents($apiUrl);
-
-                $jsonPHP  = json_decode($request, true);
-
-                array_push($temperaturas, $jsonPHP);
-            }
-        }
-        catch (ExternalApiCallException $e)
-        {
-            dump($e);
-        }
-
-        return $this->render('temperaturas/index.html.twig', [
-            'temperaturas' =>  $temperaturas,
-        ]);
-
-    }
-
-
-
 
 }
