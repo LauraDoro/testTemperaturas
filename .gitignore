@@ -51,3 +51,10 @@ node_modules/
 /app/config/parameters_sta.yml
 /app/config/parameters_prod.yml
 
+
+###> symfony/webpack-encore-bundle ###
+/node_modules/
+/public/build/
+npm-debug.log
+yarn-error.log
+###< symfony/webpack-encore-bundle ###

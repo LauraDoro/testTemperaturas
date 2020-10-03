@@ -4,7 +4,7 @@
 
 {% block body %}
 
-       <table class="table" id= "tablaTemperaturas">
+       <table class="table table-dark" id= "tablaTemperaturas">
         <thead>
             <tr>
                 <th>Capital</th>
@@ -30,6 +30,8 @@
             {% endfor %}
         </tbody>
     </table>
+
+    
 
     <a class="btn btn-secondary" href="{{ path('correo', { 'temperaturas': temperaturas }) }}"> 
         <i class="fa fa-angle-left"></i>
