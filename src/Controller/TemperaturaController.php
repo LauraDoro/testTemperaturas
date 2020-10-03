@@ -30,23 +30,29 @@ class TemperaturaController extends AbstractController
         $html = $this->renderView('temperaturas/mail.html.twig', [
             'temperaturas' => $temperaturas
         ]);
+
+        try{
       
-        // Create the Transport
-        $transport = (new Swift_SmtpTransport('in-v3.mailjet.com', 587, 'tls'))
-        ->setUsername('536b3b0ee2c88f009d2694b04f97a581')
-        ->setPassword('421da94756d17be7e64045378fcbe60f');
+            // Create the Transport
+            $transport = (new Swift_SmtpTransport('in-v3.mailjet.com', 587, 'tls'))
+            ->setUsername('536b3b0ee2c88f009d2694b04f97a581')
+            ->setPassword('421da94756d17be7e64045378fcbe60f');
 
-        // Create the Mailer using your created Transport
-        $mailer = new Swift_Mailer($transport);
+            // Create the Mailer using your created Transport
+            $mailer = new Swift_Mailer($transport);
 
-        // Create a message
-        $message = (new Swift_Message('Wonderful Subject'))
-        ->setFrom(['test@codery.net' => 'Test'])
-        ->setTo(['lauradoro83@gmail.com'])
-        ->setBody($html, 'text/html');
+            // Create a message
+            $message = (new Swift_Message('Wonderful Subject'))
+            ->setFrom(['test@codery.net' => 'Test'])
+            ->setTo(['lauradoro83@gmail.com'])
+            ->setBody($html, 'text/html');
 
-        // Send the message
-        $result = $mailer->send($message);
+            // Send the message
+            $result = $mailer->send($message);
+
+        }catch(\Swift_TransportException $e){
+            $result = $e->getMessage() ;
+        }
 
         return new Response("Correo enviado");
     }
