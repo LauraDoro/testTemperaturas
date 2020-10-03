@@ -2,18 +2,16 @@
 
 namespace App\Controller;
 
+use Swift_Mailer;
+use Swift_Message;
+use Swift_SmtpTransport;
+use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
-use Doctrine\ORM\EntityManagerInterface;
-use Swift_Mailer;
-use Swift_SmtpTransport;
-use Swift_Message;
-use Symfony\Component\Yaml\Yaml;
-use Symfony\Component\HttpKernel\KernelInterface;
 
 
 /**
@@ -21,16 +19,6 @@ use Symfony\Component\HttpKernel\KernelInterface;
  */
 class TemperaturaController extends AbstractController
 {
-
-    /**
-     * @Route("/", name="tester")
-     */
-    public function indexAction(Request $request)
-    {
-
-
-        
-    }
 
     /**
      * @Route("/correo", name="correo")
@@ -64,7 +52,7 @@ class TemperaturaController extends AbstractController
     }
 
     /**
-     * @Route("/apiTemperaturas", name="apiTemperaturas")
+     * @Route("/", name="apiTemperaturas")
      */
     public function apiTemperaturasAction()
     {
@@ -72,17 +60,23 @@ class TemperaturaController extends AbstractController
         $citiesId = [3119841, 3117813, 3114965, 3113209];
         $temperaturas = [];
 
-        foreach ($citiesId as $city){
-            $apiUrl = "http://api.openweathermap.org/data/2.5/weather?id=" . $city . "&lang=en&units=metric&APPID=" . $apiKey ."&units=metric";
+        try
+        {
+            foreach ($citiesId as $city){
+                $apiUrl = "http://api.openweathermap.org/data/2.5/weather?id=" . $city . "&lang=en&units=metric&APPID=" . $apiKey ."&units=metric";
 
-            $request = file_get_contents($apiUrl);
+                $request = file_get_contents($apiUrl);
 
-            $jsonPHP  = json_decode($request, true);
+                $jsonPHP  = json_decode($request, true);
 
-            array_push($temperaturas, $jsonPHP);
+                array_push($temperaturas, $jsonPHP);
+            }
         }
-    
-        
+        catch (ExternalApiCallException $e)
+        {
+            dump($e);
+        }
+
         return $this->render('temperaturas/index.html.twig', [
             'temperaturas' =>  $temperaturas,
         ]);

@@ -15,19 +15,19 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                {% for temperatura in temperaturas %}
+            {% for temperatura in temperaturas %}
+                <tr>
                     <td>{{ temperatura.name }}</td>
                     <td>{{ temperatura.main.temp }}</td>
                     <td>{{ temperatura.coord.lon }} {{ temperatura.coord.lat }}</td>
                     <td>{{ temperatura.main.humidity }}</td>
                     <td>{{ temperatura.wind.speed }}</td>
-                {% else %}
-                    <tr>
-                        <td colspan="5">No hay datos en este momento</td>
-                    </tr>
-                {% endfor %}
-            </tr>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">No hay datos en este momento</td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
 
