@@ -1,0 +1,53 @@
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###
+
+###> symfony/web-server-bundle ###
+/.web-server-pid
+###< symfony/web-server-bundle ###
+
+###> symfony/phpunit-bridge ###
+.phpunit
+.phpunit.result.cache
+/phpunit.xml
+###< symfony/phpunit-bridge ###
+
+/.web-server-pid
+/app/config/parameters.yml
+/build/
+/phpunit.xml
+/var/*
+!/var/cache
+/var/cache/*
+!var/cache/.gitkeep
+!/var/logs
+/var/logs/*
+!var/logs/.gitkeep
+!/var/sessions
+/var/sessions/*
+!var/sessions/.gitkeep
+!var/SymfonyRequirements.php
+/vendor/
+/web/bundles/
+
+# Yarn
+node_modules/
+/web/build
+
+# PhpStorm
+.idea
+
+# Front page videos
+/web/download/blue_growth_puerto_de_vigo.mp4
+/web/download/blue_growth_port_of_vigo.mp4
+/web/download/BLUE GROWTH PORT OF VIGO .mp4
+/web/upload/
+/app/config/parameters_sta.yml
+/app/config/parameters_prod.yml
+

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.locale }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="{% block description %}{% endblock %}">
+        {% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="" />
+    </head>
+    <body>
+        {% block body %}{% endblock %}
+        {% block modals %}{% endblock %}
+        {% block javascripts %} 
+        {% endblock %}
+    </body>
+</html>

@@ -1,0 +1,29 @@
+<html>
+    <h3>Laura Domínguez Rodríguez. Test de código.<h3>
+
+    <h3>Temperaturas en Galicia</h3>
+
+    <table style="width:100%">
+    <tr>
+        <th>Capital</th>
+        <th>Temperatura ºC</th>
+        <th>Coordenadas (longitud y latitud)</th>
+        <th>Humedad</th>
+        <th>Velocidad del viento</th>
+    </tr>
+    {% for temperatura in temperaturas %}
+        <tr>
+            <td style="text-align:center">{{ temperatura.name }}</td>
+            <td style="text-align:center">{{ temperatura.main.temp }}</td>
+            <td style="text-align:center">{{ temperatura.coord.lon }} {{ temperatura.coord.lat }}</td>
+            <td style="text-align:center">{{ temperatura.main.humidity }}</td>
+            <td style="text-align:center">{{ temperatura.wind.speed }}</td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="5">No hay datos en este momento </td>
+        </tr>
+    {% endfor %}
+</table>
+
+</html>

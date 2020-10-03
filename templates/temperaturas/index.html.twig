@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Temperaturas{% endblock %}
+
+{% block body %}
+
+       <table class="table" id= "tablaTemperaturas">
+        <thead>
+            <tr>
+                <th>Capital</th>
+                <th>Temperatura</th>
+                <th>Coordenadas (longitud y latitud)</th>
+                <th>Humedad</th>
+                <th>Velocidad del viento</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                {% for temperatura in temperaturas %}
+                    <td>{{ temperatura.name }}</td>
+                    <td>{{ temperatura.main.temp }}</td>
+                    <td>{{ temperatura.coord.lon }} {{ temperatura.coord.lat }}</td>
+                    <td>{{ temperatura.main.humidity }}</td>
+                    <td>{{ temperatura.wind.speed }}</td>
+                {% else %}
+                    <tr>
+                        <td colspan="5">No hay datos en este momento</td>
+                    </tr>
+                {% endfor %}
+            </tr>
+        </tbody>
+    </table>
+
+    <a class="btn btn-secondary" href="{{ path('correo', { 'temperaturas': temperaturas }) }}"> 
+        <i class="fa fa-angle-left"></i>
+        Enviar correo
+    </a>
+
+
+{% endblock %}
