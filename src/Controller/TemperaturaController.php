@@ -30,14 +30,11 @@ class TemperaturaController extends AbstractController
         $temperaturas = [];
 
         try
-        {
+        {   //Llamada a la api para cada ciudad.
             foreach ($citiesId as $city){
                 $apiUrl = "http://api.openweathermap.org/data/2.5/weather?id=" . $city . "&lang=en&units=metric&APPID=" . $apiKey ."&units=metric";
-
                 $request = file_get_contents($apiUrl);
-
                 $jsonPHP  = json_decode($request, true);
-
                 array_push($temperaturas, $jsonPHP);
             }
         }
@@ -51,7 +48,7 @@ class TemperaturaController extends AbstractController
         ]);
 
     }
-    
+
 
     /**
      * @Route("/correo", name="correo")
@@ -60,12 +57,12 @@ class TemperaturaController extends AbstractController
     {
         $temperaturas = $request->query->get('temperaturas');
 
+        //Formateo del texto para mail 
         $html = $this->renderView('temperaturas/mail.html.twig', [
             'temperaturas' => $temperaturas
         ]);
 
         try{
-      
             // Create the Transport
             $transport = (new Swift_SmtpTransport('in-v3.mailjet.com', 587, 'tls'))
             ->setUsername('536b3b0ee2c88f009d2694b04f97a581')
