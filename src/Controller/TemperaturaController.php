@@ -29,18 +29,21 @@ class TemperaturaController extends AbstractController
         $citiesId = [3119841, 3117813, 3114965, 3113209];
         $temperaturas = [];
 
-        try
-        {   //Llamada a la api para cada ciudad.
-            foreach ($citiesId as $city){
-                $apiUrl = "http://api.openweathermap.org/data/2.5/weather?id=" . $city . "&lang=en&units=metric&APPID=" . $apiKey ."&units=metric";
-                $request = file_get_contents($apiUrl);
-                $jsonPHP  = json_decode($request, true);
-                array_push($temperaturas, $jsonPHP);
-            }
-        }
-        catch (ExternalApiCallException $e)
-        {
-            dump($e);
+        //Llamada a la api para cada ciudad.
+        foreach ($citiesId as $city){
+            $apiUrl = "http://api.openweathermap.org/data/2.5/weather?id=" . $city . "&lang=en&units=metric&APPID=" . $apiKey ."&units=metric";
+            $curl = curl_init();
+            $headers = array();
+            curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($curl, CURLOPT_HEADER, 0);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($curl, CURLOPT_URL, $apiUrl);
+            curl_setopt($curl, CURLOPT_TIMEOUT, 30);
+            $json = curl_exec($curl);
+            curl_close($curl);
+            $jsonPHP  = json_decode($json, true);
+            array_push($temperaturas, $jsonPHP);
+
         }
 
         return $this->render('temperaturas/index.html.twig', [
@@ -86,5 +89,6 @@ class TemperaturaController extends AbstractController
 
         return new Response("Correo enviado");
     }
+
 
 }
