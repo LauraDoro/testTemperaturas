@@ -77,7 +77,7 @@ class TemperaturaController extends AbstractController
             // Create a message
             $message = (new Swift_Message('Wonderful Subject'))
             ->setFrom(['test@codery.net' => 'Test'])
-            ->setTo(['lauradoro83@gmail.com'])
+            ->setTo(['gestion@codery.es'])
             ->setBody($html, 'text/html');
 
             // Send the message
