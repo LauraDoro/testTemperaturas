@@ -4,7 +4,7 @@
 
 
 {% block stylesheets %}
-<link rel="stylesheet" href="{{ asset('scss/app.scss') }}" />
+     <link rel="stylesheet" href="{{ asset('build/app.scss') }}">
 {% endblock %}
 
 
@@ -44,5 +44,12 @@
         Enviar correo
     </a>
 
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="{{ asset('build/js/app.js') }}"></script>
 
 {% endblock %}
